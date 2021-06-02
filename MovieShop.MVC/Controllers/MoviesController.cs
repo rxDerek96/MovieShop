@@ -8,6 +8,7 @@ namespace MovieShop.MVC.Controllers
 {
     public class MoviesController : Controller
     {
+        
         public IActionResult Details(int id)
         {
             return View();
@@ -17,4 +18,5 @@ namespace MovieShop.MVC.Controllers
             return View();
         }
     }
+   
 }

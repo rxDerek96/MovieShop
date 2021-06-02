@@ -43,5 +43,5 @@ C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\ref\MovieSh
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\MovieShop.MVC.pdb
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\MovieShop.MVC.genruntimeconfig.cache
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Home\TopMovies.cshtml.g.cs
-C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Home\Details.cshtml.g.cs
-C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Home\TopRatedMovies.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Movies\Details.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Movies\TopRatedMovies.cshtml.g.cs
