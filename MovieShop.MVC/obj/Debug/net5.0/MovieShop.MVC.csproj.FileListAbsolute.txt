@@ -44,4 +44,12 @@ C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\MovieShop.M
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\MovieShop.MVC.genruntimeconfig.cache
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Home\TopMovies.cshtml.g.cs
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Movies\Details.cshtml.g.cs
-C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Movies\TopRatedMovies.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\User\favorite.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\User\purchase.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\User\review.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\User\unfavorite.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Movies\toprated.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Admin\movie.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Admin\purchases.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Movies\genre.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Movies\toprevenue.cshtml.g.cs

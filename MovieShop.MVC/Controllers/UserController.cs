@@ -6,25 +6,23 @@ using System.Threading.Tasks;
 
 namespace MovieShop.MVC.Controllers
 {
-    public class MoviesController : Controller
+    public class UserController : Controller
     {
-        
-        public IActionResult Details(int id)
+        public IActionResult purchase()
         {
             return View();
         }
-        public IActionResult toprated()
+        public IActionResult favorite()
         {
             return View();
         }
-        public IActionResult toprevenue()
+        public IActionResult unfavorite()
         {
             return View();
         }
-        public IActionResult genre(int genreid)
+        public IActionResult review()
         {
             return View();
         }
     }
-   
 }
