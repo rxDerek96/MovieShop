@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApplicationCore.ServiceInterfaces;
+using Infrastructure.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MovieShop.MVC.Models;
 using System;
@@ -11,16 +13,25 @@ namespace MovieShop.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IMovieService _movieService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IMovieService movieService)
         {
-            _logger = logger;
+            _movieService = movieService;
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index()
         {
-            return View();
+            
+            var movies = _movieService.GetTopRevenueMovies();
+            //send the data to the view to display
+            //1.passing the data from Controller to view using strongly typed models
+            //2.viewbag
+            //3.viewdata
+            ViewBag.MoviesCount = movies.Count;
+            ViewBag.PageTitle = "Top Revenue Movies";
+            ViewData["MyCustomData"] = "Some Info";
+            return View(movies);
         }
         public IActionResult TopMovies()
         {
