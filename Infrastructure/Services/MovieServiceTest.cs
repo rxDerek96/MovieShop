@@ -45,5 +45,15 @@ namespace Infrastructure.Services
             };
             return movies;
         }
+
+        Task<MovieDetailsResponseModel> IMovieService.GetMovieDetailsById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<MovieCardResponseModel>> IMovieService.GetTopRevenueMovies()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
