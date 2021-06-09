@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Models.Response;
+﻿using ApplicationCore.Models.Request;
+using ApplicationCore.Models.Response;
 using ApplicationCore.RepositoryInterfaces;
 using ApplicationCore.ServiceInterfaces;
 using System;
@@ -63,6 +64,10 @@ namespace Infrastructure.Services
             };
 
             return movieDetailResponseModel;
+        }
+        public async Task<MovieDetailsResponseModel> CreateMovie(MovieCreateRequestModel movieCreateRequest)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<List<MovieCardResponseModel>> GetTopRevenueMovies()

@@ -18,9 +18,9 @@ namespace ApplicationCore.RepositoryInterfaces
 
         Task<bool> GetExists(Expression<Func<T, bool>> filter);
 
-        Task<T> add(T entity);
+        Task<T> Add(T entity);
 
-        Task<T> update(T entity);
+        Task<T> Update(T entity);
 
         Task Delete(T entity);
     }
