@@ -1,9 +1,9 @@
 ﻿using ApplicationCore.Models.Request;
 using ApplicationCore.Models.Response;
 using ApplicationCore.RepositoryInterfaces;
+using System.Collections.Generic;
 using ApplicationCore.ServiceInterfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +17,24 @@ namespace Infrastructure.Services
         public MovieService(IMovieRepository movieRepository)
         {
             _movieRepository = movieRepository;
+        }
+        public async Task<List<MovieCardResponseModel>> GetTopRevenueMovies()
+        {
+            var movies = await _movieRepository.GetHighestRevenueMovies();
+
+            var movieCardList = new List<MovieCardResponseModel>();
+            foreach (var movie in movies)
+            {
+                movieCardList.Add(new MovieCardResponseModel
+                {
+                    Id = movie.Id,
+                    PosterUrl = movie.PosterUrl,
+                    ReleaseDate = movie.ReleaseDate.GetValueOrDefault(),
+                    Title = movie.Title
+                });
+            }
+
+            return movieCardList;
         }
         public async Task<MovieDetailsResponseModel> GetMovieDetailsById(int id)
         {
@@ -70,24 +88,7 @@ namespace Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<MovieCardResponseModel>> GetTopRevenueMovies()
-        {
-            var movies = await _movieRepository.GetHighestRevenueMovies();
-
-            var movieCardList = new List<MovieCardResponseModel>();
-            foreach (var movie in movies)
-            {
-                movieCardList.Add(new MovieCardResponseModel
-                {
-                    Id = movie.Id,
-                    PosterUrl = movie.PosterUrl,
-                    ReleaseDate = movie.ReleaseDate.GetValueOrDefault(),
-                    Title = movie.Title
-                });
-            }
-
-            return movieCardList;
-        }
+        
 
     }
         

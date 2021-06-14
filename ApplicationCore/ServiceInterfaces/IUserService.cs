@@ -20,10 +20,14 @@ namespace ApplicationCore.ServiceInterfaces
         // Favorite Movie
         // Add Review
         // Get All Purchased Movies
+        Task<List<MovieCardResponseModel>> GetUserPurchasedMovies(int userId);
         // Get All Favorited Movies
         // Edit Review
         // Remove Favorite
         // Get User Details
+        Task<UserProfileResponseModel> GetUserProfile(int userId);
+
+
 
     }
 }

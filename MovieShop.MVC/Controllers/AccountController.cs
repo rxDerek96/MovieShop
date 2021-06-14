@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApplicationCore.Models.Request;
 using ApplicationCore.ServiceInterfaces;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace MovieShop.MVC.Controllers
 {
@@ -37,13 +40,13 @@ namespace MovieShop.MVC.Controllers
             // take name, dob, email, password from view and save it to database
             return View();
         }
-
-        public async Task<IActionResult> Login()
+        [HttpGet]
+        public  IActionResult Login()
         {
 
             return View();
         }
-
+        
 
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginRequestModel model)
@@ -54,9 +57,62 @@ namespace MovieShop.MVC.Controllers
                 return View();
             }
 
-            // ret
-            return View();
+            // user entered his correct un/pw
+            // we will create a cookie, movieshopauthcookie =>FirstName, LastName, id, Email, expiration time , claims
+            // Cookie based Authentication.
+            // 2 hours
+            // 
 
+            // create claims object and store required information
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.GivenName,user.FirstName ),
+                new Claim(ClaimTypes.Surname, user.LastName),
+                new Claim( ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
+
+            // HttpContext => 
+            // method type => get/post
+            // Url
+            // browsers
+            // headers
+            // form
+            // cookies
+
+            // create an identity object
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // create a cookie that stores the identity information
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity));
+
+            return LocalRedirect("~/");
+
+        }
+        [HttpGet]
+        public IActionResult CreateMovie()
+        {
+        
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateMovie(MovieCreateRequestModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // login
+            }
+
+            return View();
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Login");
         }
     }
 }

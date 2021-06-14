@@ -10,9 +10,11 @@ namespace MovieShop.MVC.Controllers
     public class MoviesController : Controller
     {
         private readonly IMovieService _movieService;
-        public MoviesController(IMovieService movieService)
+        private readonly IGenreService _genreService;
+        public MoviesController(IMovieService movieService, IGenreService genreService)
         {
             _movieService = movieService;
+            _genreService = genreService;
         }
         public async Task<IActionResult> Details(int id)
         {
@@ -27,9 +29,10 @@ namespace MovieShop.MVC.Controllers
         {
             return View();
         }
-        public IActionResult genre(int genreid)
+        public async Task<IActionResult> Genre(int id)
         {
-            return View();
+            var moviecards = await _genreService.GetMoviesByGenreId(id);
+            return View(moviecards);
         }
     }
    

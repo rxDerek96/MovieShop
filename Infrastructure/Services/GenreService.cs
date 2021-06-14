@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Models.Response;
+﻿
+using ApplicationCore.Models.Response;
 using ApplicationCore.RepositoryInterfaces;
 using ApplicationCore.ServiceInterfaces;
 using System;
@@ -33,6 +34,28 @@ namespace Infrastructure.Services
             }
 
             return genresModel;
+        }
+
+
+        public async Task<List<MovieCardResponseModel>> GetMoviesByGenreId(int Id)
+        {
+            var genre = await _genreRepository.GetById(Id);
+
+
+            var movieCards = new List<MovieCardResponseModel>();
+
+            foreach (var Movie in genre.Movies)
+            {
+                movieCards.Add(new MovieCardResponseModel
+                {
+                    Id = Movie.Id,
+                    PosterUrl =Movie.PosterUrl,
+                    ReleaseDate =Movie.ReleaseDate.GetValueOrDefault(),
+                    Title = Movie.Title
+                });
+            }
+
+            return movieCards;
         }
     }
 }

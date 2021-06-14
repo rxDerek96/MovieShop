@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
 using ApplicationCore.RepositoryInterfaces;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using MovieShop.MVC.Middlewares;
 
 namespace MovieShop.MVC
 {
@@ -30,18 +32,36 @@ namespace MovieShop.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<IGenreService, GenreService>();
-            services.AddScoped<IGenreRepository, GenreRepository>();
+
+            // Telling our Container what class it needs to inject in the constructor for interface(we use
+            // IMovieService in HomeController's constructor, so we need a class for the IMovieService instance,
+            // here we specify which class we gonna using for an IMovieService instance.)
+            // Here is the only part we need to change!!!! (Dependency Injection!!!)
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IMovieRepository, MovieRepository>();
+
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
 
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
-            services.AddDbContext<MovieShopDbContext>(options=>
+            services.AddDbContext<MovieShopDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("MovieShopDbConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString(name: "MovieShopDbConnection"));
             });
+
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.Cookie.Name = "MovieShopAuthCookie";
+                options.ExpireTimeSpan = TimeSpan.FromHours(2);
+                options.LoginPath = "/Account/Login";
+            });
+
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +69,7 @@ namespace MovieShop.MVC
         {
             if (env.IsDevelopment())
             {
+                app.UseMovieShopExceptionMiddleware();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -62,7 +83,11 @@ namespace MovieShop.MVC
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            // register my customed middleware
+            app.UseLoggerMiddleware();
 
             app.UseEndpoints(endpoints =>
             {

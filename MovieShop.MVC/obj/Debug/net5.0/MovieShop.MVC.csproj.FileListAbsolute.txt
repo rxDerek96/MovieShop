@@ -49,9 +49,7 @@ C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\User\review.cshtml.g.cs
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\User\unfavorite.cshtml.g.cs
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Movies\toprated.cshtml.g.cs
-C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Admin\movie.cshtml.g.cs
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Admin\purchases.cshtml.g.cs
-C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Movies\genre.cshtml.g.cs
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Movies\toprevenue.cshtml.g.cs
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Account\login.cshtml.g.cs
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\bin\Debug\net5.0\Humanizer.dll
@@ -100,3 +98,7 @@ C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Account\CreateMovie.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Shared\_LoginInfoPartial.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Movies\Genre.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\User\ViewProfile.cshtml.g.cs

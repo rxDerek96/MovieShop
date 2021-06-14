@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using ApplicationCore.Entities;
 using ApplicationCore.Models.Request;
 using ApplicationCore.Models.Response;
@@ -115,5 +116,43 @@ namespace Infrastructure.Services
                 256 / 8));
             return hashed;
         }
+        public async Task<List<MovieCardResponseModel>> GetUserPurchasedMovies(int id)
+        {
+            var user = await _userRepository.GetById(id);
+
+            var purchedMovieCardList = new List<MovieCardResponseModel>();
+            foreach (var usermovie in user.Purchases)
+            {
+                purchedMovieCardList.Add(new MovieCardResponseModel
+                {
+                    Id = usermovie.MovieId,
+                    PosterUrl = usermovie.Movie.PosterUrl,
+                    ReleaseDate = usermovie.Movie.ReleaseDate.GetValueOrDefault(),
+                    Title = usermovie.Movie.Title
+                });
+            }
+
+            return purchedMovieCardList;
+        }
+        public async Task<UserProfileResponseModel> GetUserProfile(int userId)
+        {
+
+            var user = await _userRepository.GetById(userId);
+            var userProfile = new UserProfileResponseModel
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DateOfBirth = user.DateOfBirth.GetValueOrDefault(),
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                LastLoginDateTime = user.LastLoginDateTime.GetValueOrDefault(DateTime.Now)
+            };
+
+
+
+            return userProfile;
+        }
+
     }
 }

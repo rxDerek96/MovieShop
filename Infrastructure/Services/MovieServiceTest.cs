@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Models.Response;
+﻿using ApplicationCore.Models.Request;
+using ApplicationCore.Models.Response;
 using ApplicationCore.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,11 @@ namespace Infrastructure.Services
 {
     public class MovieServiceTest : IMovieService
     {
+        public Task<MovieDetailsResponseModel> CreateMovie(MovieCreateRequestModel movieCreateRequest)
+        {
+            throw new NotImplementedException();
+        }
+
         public MovieDetailsResponseModel GetMovieDetailsById(int id)
         {
             throw new NotImplementedException();
