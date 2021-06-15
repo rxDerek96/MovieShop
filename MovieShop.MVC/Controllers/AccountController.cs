@@ -64,12 +64,14 @@ namespace MovieShop.MVC.Controllers
             // 
 
             // create claims object and store required information
+            var x = new List<string>();
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.GivenName,user.FirstName ),
                 new Claim(ClaimTypes.Surname, user.LastName),
-                new Claim( ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, string.Join(",", user.Roles))
             };
 
             // HttpContext => 

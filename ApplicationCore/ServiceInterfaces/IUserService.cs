@@ -27,6 +27,8 @@ namespace ApplicationCore.ServiceInterfaces
         // Get User Details
         Task<UserProfileResponseModel> GetUserProfile(int userId);
 
+        Task<UserProfileResponseModel> EditUserProfile(UserProfileResponseModel userProfileResponseModel);
+
 
 
     }

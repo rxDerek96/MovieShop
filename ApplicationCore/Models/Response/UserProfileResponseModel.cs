@@ -26,7 +26,7 @@ namespace ApplicationCore.Models.Response
         [StringLength(50)]
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "please make sure dateofbirth is not blank!!")]
+        [Required(ErrorMessage = "Please make sure DateOfBirth is not blank!!")]
         public DateTime? DateOfBirth { get; set; }
         public DateTime? LastLoginDateTime { get; set; }
 

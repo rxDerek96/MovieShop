@@ -38,7 +38,7 @@ namespace Infrastructure.Services
         private bool GetIsAdmin()
         {
             var roles = Roles;
-            return roles.Any(r => r.Contains("Admin"));
+            return roles.Any(r => r.Contains("admin"));
         }
         public IEnumerable<string> Roles => GetRoles();
         private IEnumerable<string> GetRoles()

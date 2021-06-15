@@ -102,3 +102,4 @@ C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Shared\_LoginInfoPartial.cshtml.g.cs
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\Movies\Genre.cshtml.g.cs
 C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\User\ViewProfile.cshtml.g.cs
+C:\Users\24275\source\repos\MovieShop\MovieShop.MVC\obj\Debug\net5.0\Razor\Views\User\EditProfile.cshtml.g.cs

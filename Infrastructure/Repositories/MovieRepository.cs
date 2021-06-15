@@ -19,7 +19,15 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Movie>> GetTopRatedMovies()
         {
-            throw new NotImplementedException();
+            var movies = await _dbContext.Movies.ToListAsync();
+            foreach (var movie in movies)
+            {
+                var movieRating = await _dbContext.Reviews.Where(r => r.MovieId == movie.Id).DefaultIfEmpty()
+                .AverageAsync(r => r == null ? 0 : r.Rating);
+                if (movieRating > 0) movie.Rating = movieRating;
+            }
+            var selectedmovies= movies.OrderByDescending(m => m.Rating).Take(30).ToList();
+            return selectedmovies;
         }
 
         public async Task<IEnumerable<Movie>> GetHighestRevenueMovies()

@@ -21,13 +21,17 @@ namespace MovieShop.MVC.Controllers
             var movie = await _movieService.GetMovieDetailsById(id);
             return View(movie);
         }
-        public IActionResult toprated()
+        public async Task<IActionResult> toprated()
         {
-            return View();
+            var movies = await _movieService.GetTopRatedMovies();
+
+            return View(movies);
         }
-        public IActionResult toprevenue()
+        public async Task<IActionResult> toprevenue()
         {
-            return View();
+            var movies = await _movieService.GetTopRevenueMovies();
+
+            return View(movies);
         }
         public async Task<IActionResult> Genre(int id)
         {

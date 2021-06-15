@@ -81,13 +81,18 @@ namespace Infrastructure.Services
             if (hashedPassword == user.HashedPassword)
             {
                 // user entered correct password
-
+                var Rolelist = new List<string>();
+                foreach(var role in user.Roles)
+                {
+                    Rolelist.Add(role.Name);
+                }
                 var loginResponseModel = new UserLoginResponseModel
                 {
                     Id = user.Id,
                     Email = user.Email,
                     FirstName = user.FirstName,
-                    LastName = user.LastName
+                    LastName = user.LastName,
+                    Roles=Rolelist
                 };
                 return loginResponseModel;
             }
@@ -153,6 +158,36 @@ namespace Infrastructure.Services
 
             return userProfile;
         }
+        public async Task<UserProfileResponseModel> EditUserProfile(UserProfileResponseModel userProfileResponseModel)
+        {
+            var user = await _userRepository.GetById(userProfileResponseModel.Id);
 
+            if (user == null)
+            {
+                // return null
+                return null;
+            }
+
+            user.Id = userProfileResponseModel.Id;
+            user.FirstName = userProfileResponseModel.FirstName;
+            user.LastName = userProfileResponseModel.LastName;
+            user.Email = userProfileResponseModel.Email;
+            user.PhoneNumber = userProfileResponseModel.PhoneNumber;
+            user.LastLoginDateTime = userProfileResponseModel.LastLoginDateTime;
+
+            await _userRepository.Update(user);
+
+            var response = new UserProfileResponseModel
+            {
+                Id = userProfileResponseModel.Id,
+                FirstName = userProfileResponseModel.FirstName,
+                LastName = userProfileResponseModel.LastName,
+                Email = userProfileResponseModel.Email,
+                PhoneNumber = userProfileResponseModel.PhoneNumber,
+                LastLoginDateTime = userProfileResponseModel.LastLoginDateTime
+            };
+
+            return response;
+        }
     }
 }

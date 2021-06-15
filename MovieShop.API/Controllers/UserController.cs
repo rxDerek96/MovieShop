@@ -1,19 +1,21 @@
 ﻿using ApplicationCore.Models.Response;
 using ApplicationCore.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MovieShop.MVC.Controllers
+namespace MovieShop.API.Controllers
 {
-    public class UserController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IUserService _userService;
-
 
         public UserController(ICurrentUserService currentUserService, IUserService userService)
         {
@@ -21,57 +23,69 @@ namespace MovieShop.MVC.Controllers
             _userService = userService;
         }
 
+
         [Authorize]
         [HttpGet]
+        [Route("PurchasedMovies")]
         public async Task<IActionResult> PurchasedMovies()
         {
-
             var userId = _currentUserService.UserId;
-            // get the user id
-            //
-            // make a request to the database and get info from purchase table 
-            // select * from Purchase where userid = @getfromcookie
+
             var purchasedMovies = await _userService.GetUserPurchasedMovies(userId);
 
-            return View(purchasedMovies);
-        }
+            if (purchasedMovies.Any())
+            {
+                return Ok(purchasedMovies);
+            }
 
+            return BadRequest("No movies found");
+        }
 
         [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> PurchaseMovie()
-        {
-            // get userid from CurrentUser and create a row in Purchase Table
-            return View();
-        }
+        [HttpGet]
+        [Route("ViewProfile")]
         public async Task<IActionResult> ViewProfile()
         {
             var userId = _currentUserService.UserId;
+
             var userProfile = await _userService.GetUserProfile(userId);
 
-            return View(userProfile);
+            if (userProfile != null)
+            {
+                return Ok(userProfile);
+            }
+
+            return BadRequest("No user profile found");
         }
+
         [Authorize]
         [HttpGet]
+        [Route("EditProfile")]
         public async Task<IActionResult> EditProfile()
         {
             var userId = _currentUserService.UserId;
             var userProfile = await _userService.GetUserProfile(userId);
 
-            return View(userProfile);
+            if (userProfile != null)
+            {
+                return Ok(userProfile);
+            }
+
+            return BadRequest("No user profile found");
         }
+
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> EditProfile(UserProfileResponseModel model)
+        [Route("EditProfile")]
+        public async Task<IActionResult> EditProfile([FromBody] UserProfileResponseModel model)
         {
             if (ModelState.IsValid)
             {
-                //save to database
                 await _userService.EditUserProfile(model);
-                // redirect to Login 
+                return Ok();
             }
-            // take name, dob, email, pasword from view and save it to database
-            return RedirectToAction("ViewProfile");
+
+            return BadRequest("Please check input");
         }
     }
 }
