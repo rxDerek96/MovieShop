@@ -18,5 +18,6 @@ namespace ApplicationCore.Entities
 
         public ICollection<Movie> Movies { get; set; }
 
+
     }
 }

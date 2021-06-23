@@ -33,7 +33,8 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item">Library</a>
+                    <a class="dropdown-item" asp-controller="User" asp-action="PurchasedMovies">Purchased Movies</a>
+                    <a class="dropdown-item" asp-controller="User" asp-action="FavoriteMovies">Favorite Movies</a>
                     <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Log Out</a>
                     <a class="dropdown-item" asp-controller="User" asp-action="ViewProfile">View Profile</a>
                     <a class="dropdown-item" asp-controller="User" asp-action="EditProfile">Edit Profile</a>

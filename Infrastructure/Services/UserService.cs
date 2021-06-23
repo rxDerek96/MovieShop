@@ -1,23 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using ApplicationCore.Entities;
+using ApplicationCore.Exceptions;
 using ApplicationCore.Models.Request;
 using ApplicationCore.Models.Response;
 using ApplicationCore.RepositoryInterfaces;
 using ApplicationCore.ServiceInterfaces;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
+
 namespace Infrastructure.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-
-        public UserService(IUserRepository userRepository)
+        private readonly ICurrentUserService _currentUserService;
+        private readonly IMovieService _movieService;
+        private readonly IPurchaseRepository _purchaseRepository;
+        private readonly IFavoriteRepository _favoriteRepository;
+        public UserService(IUserRepository userRepository, ICurrentUserService currentUserService,  IMovieService movieService,IPurchaseRepository purchaseRepository, IFavoriteRepository favoriteRepository)
         {
             _userRepository = userRepository;
+            _currentUserService = currentUserService;
+            _movieService = movieService;
+            _purchaseRepository = purchaseRepository;
+            _favoriteRepository = favoriteRepository;
         }
 
         public async Task<UserRegisterResponseModel> RegisterUser(UserRegisterRequestModel userRegisterRequestModel)
@@ -139,6 +150,24 @@ namespace Infrastructure.Services
 
             return purchedMovieCardList;
         }
+        public async Task<List<MovieCardResponseModel>> GetUserFavoriteMovies(int id)
+        {
+            var user = await _userRepository.GetById(id);
+
+            var favoriteMovieCardList = new List<MovieCardResponseModel>();
+            foreach (var usermovie in user.Favorites)
+            {
+                favoriteMovieCardList.Add(new MovieCardResponseModel
+                {
+                    Id = usermovie.MovieId,
+                    PosterUrl = usermovie.Movie.PosterUrl,
+                    ReleaseDate = usermovie.Movie.ReleaseDate.GetValueOrDefault(),
+                    Title = usermovie.Movie.Title
+                });
+            }
+
+            return favoriteMovieCardList;
+        }
         public async Task<UserProfileResponseModel> GetUserProfile(int userId)
         {
 
@@ -189,5 +218,60 @@ namespace Infrastructure.Services
 
             return response;
         }
+        public async Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest)
+        {
+            return await _purchaseRepository.GetExists(p =>
+                p.UserId == purchaseRequest.UserId && p.MovieId == purchaseRequest.MovieId);
+        }
+        public async Task<bool> IsMovieLiked(FavoriteRequestModel favorite)
+        {
+            return await _favoriteRepository.GetExists(p =>
+                p.UserId == favorite.UserId && p.MovieId == favorite.MovieId);
+        }
+        public async Task PurchaseMovie(PurchaseRequestModel purchaseRequest)
+        {
+
+            if (_currentUserService.UserId != purchaseRequest.UserId)
+                throw new Exception("You are not Authorized to purchase");
+            if (_currentUserService.UserId != null) purchaseRequest.UserId = _currentUserService.UserId;
+            // See if Movie is already purchased.
+            if (await IsMoviePurchased(purchaseRequest))
+                throw new ConflictException("Movie already Purchased");
+            // Get Movie Price from Movie Table
+            var movie = await _movieService.GetMovieDetailsById(purchaseRequest.MovieId);
+            purchaseRequest.TotalPrice = movie.Price;
+
+            var purchase = new Purchase
+            {
+                UserId = purchaseRequest.UserId,
+                PurchaseNumber = purchaseRequest.PurchaseNumber,
+                TotalPrice= purchaseRequest.TotalPrice,
+                PurchaseDateTime = purchaseRequest.PurchaseDateTime,
+                MovieId = purchaseRequest.MovieId
+            };
+            await _purchaseRepository.Add(purchase);
+        }
+        public async Task LikeMovie(FavoriteRequestModel favorite)
+        {
+
+            if (_currentUserService.UserId != favorite.UserId)
+                throw new Exception("You are not Authorized");
+            if (_currentUserService.UserId != null) favorite.UserId = _currentUserService.UserId;
+            // See if Movie is already liked.
+            if (await IsMovieLiked(favorite))
+                throw new ConflictException("Movie already Purchased");
+            // Get Movie Price from Movie Table
+            var movie = await _movieService.GetMovieDetailsById(favorite.MovieId);
+            
+
+            var request = new Favorite
+            {
+                UserId = favorite.UserId,
+                MovieId = favorite.MovieId
+            };
+            await _favoriteRepository.Add(request);
+        }
+
     }
+
 }

@@ -1,0 +1,31 @@
+﻿@using System.Globalization
+@model List<ApplicationCore.Models.Response.MovieReviewResponseModel>
+
+
+@foreach (var review in Model)
+            {
+                <div>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-2">
+                            UserId:
+                        </dt>
+                        <dd class="col-sm-12">
+                            @review.UserId
+                        </dd>
+                        <dt class="col-sm-2">
+                            Rating:
+                        </dt>
+                        <dd class="col-sm-12">
+                            @review.Rating
+                        </dd>
+                        <dt class="col-sm-2">
+                            Review:
+                        </dt>
+                        <dd class="col-sm-12">
+                            @review.ReviewText
+                        </dd>
+                    </dl>
+                        
+                </div>
+            }

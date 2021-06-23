@@ -38,6 +38,12 @@ namespace MovieShop.MVC.Controllers
             var moviecards = await _genreService.GetMoviesByGenreId(id);
             return View(moviecards);
         }
+        [HttpGet]
+        public async Task<IActionResult> Reviews(int id)
+        {
+            var reviews = await _movieService.GetReviewsByMovieId(id);
+            return View(reviews);
+        }
     }
    
 }

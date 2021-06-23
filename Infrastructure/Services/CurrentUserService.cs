@@ -33,7 +33,7 @@ namespace Infrastructure.Services
                                   _httpContextAccessor.HttpContext?.User.Claims
                                       .FirstOrDefault(c => c.Type == ClaimTypes.Surname)?.Value;
 
-
+        
         public bool IsAdmin => GetIsAdmin();
         private bool GetIsAdmin()
         {
@@ -41,6 +41,8 @@ namespace Infrastructure.Services
             return roles.Any(r => r.Contains("admin"));
         }
         public IEnumerable<string> Roles => GetRoles();
+
+
         private IEnumerable<string> GetRoles()
         {
             var claims = GetClaimsIdentity();

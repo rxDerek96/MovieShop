@@ -29,19 +29,21 @@ namespace MovieShop.MVC.Controllers
         {
             return View();
         }
-        public IActionResult purchases()
-        {
-            return View();
-        }
         [HttpPost]
-        public async Task<IActionResult> CreateMovie(MovieCreateRequestModel movieCreateRequest)
+        public async Task<IActionResult> CreateMovie(MovieCreateRequestModel movieCreateRequestModel)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            var createdMovie = await _movieService.CreateMovie(movieCreateRequest);
-            return RedirectToAction("Index");
+            var createdMovie = await _movieService.CreateMovie(movieCreateRequestModel);
+            return RedirectToAction("CreateMovie");
+        }
+        
+
+        public async Task<IActionResult> CreateCast()
+        {
+            return View();
         }
     }
 }

@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace MovieShop.API.Controllers
 {
     [Route("api/[controller]")]
@@ -16,11 +15,13 @@ namespace MovieShop.API.Controllers
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IUserService _userService;
+        private readonly IMovieService _movieService;
 
-        public UserController(ICurrentUserService currentUserService, IUserService userService)
+        public UserController(ICurrentUserService currentUserService, IUserService userService, IMovieService movieService)
         {
             _currentUserService = currentUserService;
             _userService = userService;
+            _movieService = movieService;
         }
 
 
@@ -87,5 +88,6 @@ namespace MovieShop.API.Controllers
 
             return BadRequest("Please check input");
         }
+
     }
 }
